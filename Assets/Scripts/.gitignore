@@ -1,0 +1,90 @@
+############################
+# Unity Engine
+############################
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+UserSettings/
+
+############################
+# Addressables / Cache
+############################
+Assets/AddressableAssetsData/*/*.bin*
+Assets/AddressableAssetsData/*/*.hash
+Assets/StreamingAssets/aa.meta
+Assets/StreamingAssets/aa/*
+
+############################
+# IDEs
+############################
+# Visual Studio
+.vs/
+*.csproj.user
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+
+# Rider
+.idea/
+.idea_modules/
+*.sln.iml
+
+############################
+# OS Junk
+############################
+# Windows
+Thumbs.db
+Thumbs.db.meta
+Desktop.ini
+Desktop.ini.meta
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.DS_Store.meta
+._*
+.Spotlight-V100
+.Trashes
+
+############################
+# Logs / Temp / Backups
+############################
+*.log
+*.stackdump
+*.tmp
+*.bak
+*.swp
+
+############################
+# Unity Cloud / Collaborate
+############################
+.collabignore
+
+############################
+# Quick Access / Recent Files
+############################
+QuickAccessManager.json
+
+############################
+# Build Artifacts
+############################
+*.apk
+*.aab
+*.exe
+*.unitypackage
+*.app
+*.ipa
+
+############################
+# Git LFS Temp
+############################
+.git/lfs/tmp/
