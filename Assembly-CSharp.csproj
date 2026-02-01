@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ClickerManager.cs" />
     <Compile Include="Assets\Scripts\ClientScript.cs" />
+    <Compile Include="Assets\Scripts\WebSocketChatClient.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Library\PackageCache\com.unity.burst@f7a407abf4d5\package.json" />
