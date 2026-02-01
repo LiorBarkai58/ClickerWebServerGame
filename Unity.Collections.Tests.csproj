@@ -41,20 +41,22 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Library\PackageCache\com.unity.collections@56bff8827a7e\Unity.Collections.Tests\NativeSortTests.tt" />
-    <None Include="Library\PackageCache\com.unity.collections@56bff8827a7e\Unity.Collections.Tests\FixedListTests.tt" />
-    <None Include="Library\PackageCache\com.unity.collections@56bff8827a7e\Unity.Collections.Tests\FixedStringSizedTests.tt" />
-    <None Include="Library\PackageCache\com.unity.collections@56bff8827a7e\Unity.Collections.Tests\Unity.Collections.Tests.asmdef" />
-    <None Include="Library\PackageCache\com.unity.collections@56bff8827a7e\Unity.Collections.Tests\NativeParallelHashSetTests.tt" />
-    <None Include="Library\PackageCache\com.unity.collections@56bff8827a7e\Unity.Collections.Tests\NativeHashSetTests.tt" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.xml" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\NativeSortTests.tt" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\FixedListTests.tt" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.xml" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\FixedStringSizedTests.tt" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\Unity.Collections.Tests.asmdef" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\NativeParallelHashSetTests.tt" />
+    <None Include="Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\NativeHashSetTests.tt" />
     <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.1.17f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.1.17f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.2.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.1.17f1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.2.12f1\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
