@@ -4,23 +4,25 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace ChatClient
 {
+
     /// <summary>
-    /// WebSocket client for chat and matchmaking. Connects to server, sends/receives text and match_found.
+    /// WebSocket client for chat and matchmaking. Connects to server, sends/receives ChatMessage objects and match_found.
     /// Call ConnectAsync then poll DrainPendingMessages from Update for chat; subscribe to OnMatchFound for matchmaking.
     /// </summary>
     public class WebSocketChatClient : MonoBehaviour
     {
         public bool IsConnected => _socket?.State == WebSocketState.Open;
-
+        
         /// <summary> Fired on main thread when server sends match_found. Argument: opponentId. </summary>
         public event Action<string> OnMatchFound;
 
         ClientWebSocket _socket;
-        readonly ConcurrentQueue<string> _incoming = new ConcurrentQueue<string>();
+        readonly ConcurrentQueue<ChatMessage> _incoming = new ConcurrentQueue<ChatMessage>();
         readonly ConcurrentQueue<string> _matchFoundQueue = new ConcurrentQueue<string>();
         CancellationTokenSource _cts;
         bool _receiveLoopRunning;
@@ -41,11 +43,13 @@ namespace ChatClient
 
             try
             {
+                _socket.Options.SetRequestHeader("Authorization", "Bearer " + ClientSession.Instance.Jwt);
                 await _socket.ConnectAsync(new Uri(wsUrl), _cts.Token);
                 if (_socket.State == WebSocketState.Open)
                 {
                     _receiveLoopRunning = true;
                     _ = ReceiveLoopAsync();
+                    Debug.Log("Connected to WebSocket server");
                 }
             }
             catch (Exception e)
@@ -66,13 +70,29 @@ namespace ChatClient
                     var result = await _socket.ReceiveAsync(buffer, cts);
                     if (result.MessageType == WebSocketMessageType.Close)
                         break;
+
                     if (result.Count > 0)
                     {
                         var text = Encoding.UTF8.GetString(buffer, 0, result.Count);
+
                         if (TryParseMatchFound(text, out var opponentId))
+                        {
                             _matchFoundQueue.Enqueue(opponentId);
+                        }
                         else
-                            _incoming.Enqueue(text);
+                        {
+                            // Parse ChatMessage JSON safely
+                            try
+                            {
+                                var msg = JsonUtility.FromJson<ChatMessage>(text);
+                                if (msg != null)
+                                    _incoming.Enqueue(msg);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogWarning($"[Chat] Failed to parse ChatMessage: {e.Message}");
+                            }
+                        }
                     }
                 }
                 catch (OperationCanceledException) { break; }
@@ -90,11 +110,12 @@ namespace ChatClient
         /// Call from Update. Returns and clears pending chat messages (safe on main thread).
         /// Also drains match_found into OnMatchFound (fire from main thread).
         /// </summary>
-        public void DrainPendingMessages(System.Collections.Generic.List<string> outMessages)
+        public void DrainPendingMessages(System.Collections.Generic.List<ChatMessage> outMessages)
         {
             outMessages.Clear();
             while (_matchFoundQueue.TryDequeue(out var opponentId))
                 OnMatchFound?.Invoke(opponentId);
+
             while (_incoming.TryDequeue(out var msg))
                 outMessages.Add(msg);
         }
@@ -104,15 +125,20 @@ namespace ChatClient
             opponentId = null;
             if (string.IsNullOrWhiteSpace(text) || text.IndexOf("match_found", StringComparison.OrdinalIgnoreCase) < 0)
                 return false;
+
             var oppKey = "\"opponentId\"";
             var idx = text.IndexOf(oppKey, StringComparison.OrdinalIgnoreCase);
             if (idx < 0) return false;
+
             var colon = text.IndexOf(':', idx + oppKey.Length);
             if (colon < 0) return false;
+
             var startQ = text.IndexOf('"', colon);
             if (startQ < 0) return false;
+
             var endQ = text.IndexOf('"', startQ + 1);
             if (endQ < 0) return false;
+
             opponentId = text.Substring(startQ + 1, endQ - startQ - 1);
             return true;
         }
@@ -147,7 +173,16 @@ namespace ChatClient
         {
             if (_socket?.State != WebSocketState.Open) return;
 
-            var bytes = Encoding.UTF8.GetBytes(message);
+            // Wrap message in ChatMessage object or just send raw string content
+            // Server will assign senderId and senderName
+            var payload = JsonUtility.ToJson(new ChatMessage()
+            {
+                Message = message,
+                SenderName = ClientSession.Instance.Username
+            });
+
+            
+            var bytes = Encoding.UTF8.GetBytes(payload);
             try
             {
                 await _socket.SendAsync(

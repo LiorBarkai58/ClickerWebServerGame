@@ -165,8 +165,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Controls\InputControlLayout.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Plugins\Steam\SteamSupport.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Controls\InputControlList.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Utilities\JsonParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Plugins\HID\HIDDescriptorWindow.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Utilities\JsonParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Controls\Processors\AxisDeadzoneProcessor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Plugins\Steam\SteamControllerType.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@be6c4fd0abf5\InputSystem\Plugins\Users\InputUserSettings.cs" />
